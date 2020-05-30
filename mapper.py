@@ -1,24 +1,26 @@
 #!/usr/bin/python3
+"""mapper.py"""
 
 import sys
 import json
-import re
 
-def read_input(file):
-    for line in file:
-        if line.strip():
-           json_line = json.loads(line)
-           if len(json_line['body']) <= 150:
-              yield json_line['body'].split(' ')
+# input comes from STDIN (standard input)
+for line in sys.stdin:
+    line = line.strip()
 
-def main():
-            data = read_input(sys.stdin)
-            for words in data:
-                for word in words:
-                    word = re.sub("[^a-zA-Z]+", "", word)
-                    if word.strip() and len(word)>0 and len(word)<=10:
-                       print("%s\t%d" % (word, 1))
+    # parse json file
+    comment = json.loads(line)
+
+    #
+    subreddit = comment["subreddit"]
+    score = comment["score"]
+    gilded = comment["gilded"]
+
+    print("%s\t%s" % (subreddit + "_comments", 1))
+    print("%s\t%s" % (subreddit + "_score", score))
+    if gilded > 0:
+        print("%s\t%s" % (subreddit + "_gilded", gilded))
 
 
-if __name__ == "__main__":
-    main()
+
+
