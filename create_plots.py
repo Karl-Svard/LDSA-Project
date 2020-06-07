@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Read in file
-file = open('Result_(6.7GB)', 'r')
+file = open('Result_2011-08', 'r')
 lines = file.readlines()
 
 # Initialize lists
